@@ -10,6 +10,9 @@
 //            Partial images will be transmitted if image exceeds buffer size
 //
 
+// Integrated LED
+const int LED_PIN = 2;
+
 // Select camera model
 #define CAMERA_MODEL_WROVER_KIT // Has PSRAM
 //#define CAMERA_MODEL_ESP_EYE // Has PSRAM
@@ -33,8 +36,9 @@ const int serverPort = 5000;
 
 WiFiClient client;
 
-// Enviar una imagen al servidor
+// Send image to server
 String sendPhoto() {
+  digitalWrite(LED_PIN, LOW); // LED off
   String getAll;
   String getBody;
 
@@ -103,6 +107,7 @@ String sendPhoto() {
       }
       if (getBody.length()>0) { break; }
     }
+    digitalWrite(LED_PIN, HIGH); // LED on if received response from server
     Serial.println();
     client.stop();
     Serial.println(getBody);
@@ -115,10 +120,15 @@ String sendPhoto() {
 }
 
 void setup() {
+  // Serial config
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
 
+  // Integrated LED
+  pinMode(LED_PIN, OUTPUT);
+
+  // Camera config
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -177,5 +187,4 @@ void setup() {
 
 void loop() {
   sendPhoto();
-  delay(1000);
 }
