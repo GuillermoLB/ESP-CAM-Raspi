@@ -15,5 +15,7 @@ detected_objects = list(set(results.pandas().xyxy[0]['name'].to_list()))
 print(detected_objects)
 
 # Show image with labels
-results.show()
-results.save('labeled_image.jpg')
+#results.show()
+
+# Save the image
+#results.save('labeled_image.jpg')
