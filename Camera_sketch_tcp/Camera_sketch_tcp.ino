@@ -23,18 +23,26 @@ const int LED_PIN = 2;
 //#define CAMERA_MODEL_AI_THINKER // Has PSRAM
 //#define CAMERA_MODEL_TTGO_T_JOURNAL // No PSRAM
 
+
 #include "camera_pins.h"
 
 const char* ssid = "MiFibra-62A8";
 const char* password = "mK4Dyxoa";
 
-String serverName = "192.168.1.2";
+String serverName = "192.168.1.50";
 
 String serverPath = "/upload"; 
 
 const int serverPort = 5000;
 
 WiFiClient client;
+
+// LED on, wait and off
+void blinkLED(){
+  digitalWrite(LED_PIN, HIGH); // LED on if received response from server
+  delay(500);
+  digitalWrite(LED_PIN, LOW);
+}
 
 // Send image to server
 String sendPhoto() {
@@ -107,7 +115,7 @@ String sendPhoto() {
       }
       if (getBody.length()>0) { break; }
     }
-    digitalWrite(LED_PIN, HIGH); // LED on if received response from server
+    blinkLED();
     Serial.println();
     client.stop();
     Serial.println(getBody);
@@ -186,6 +194,6 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  delay(6000);
   sendPhoto();
 }
