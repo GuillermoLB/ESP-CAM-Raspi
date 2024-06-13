@@ -1,0 +1,5 @@
+# Ignore all the image files for privacy
+archive/*
+image/*
+archive.zip
+
