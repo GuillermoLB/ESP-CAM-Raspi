@@ -26,8 +26,8 @@ const int LED_PIN = 2;
 
 #include "camera_pins.h"
 
-const char* ssid = "MiFibra-62A8";
-const char* password = "mK4Dyxoa";
+const char* ssid;
+const char* password;
 
 String serverName = "192.168.1.50";
 
